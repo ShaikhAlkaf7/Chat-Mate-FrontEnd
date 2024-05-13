@@ -1,28 +1,39 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/userSlice";
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("first");
     try {
       const { data } = await axios.post("/api/user/login", {
         userName,
         password,
       });
       console.log(data);
+      if (data?.success == true) {
+        toast.success(data?.message, { position: "top-center" });
+        localStorage.setItem("user", JSON.stringify(data?.user));
+        dispatch(addUser(data?.user));
+        navigate("/");
+      }
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data.message, { position: "top-center" });
     }
   };
   return (
     <div>
       <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border">
-        <h1 className="text-3xl font-bold text-center my-2">Sign Up </h1>
+        <h1 className="text-3xl font-bold text-center my-2">Login </h1>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1 w-full">
             <label htmlFor="userName" className="text-xl font-semibold">

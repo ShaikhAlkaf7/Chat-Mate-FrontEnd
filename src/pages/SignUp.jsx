@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +20,11 @@ const SignUp = () => {
         fullName,
         email,
       });
-      console.log(data);
+
+      if (data?.successs == true) {
+        toast.success(data?.message, { position: "top-center" });
+        navigate("/");
+      }
     } catch (error) {
       toast.error(error.response.data.message, { position: "top-center" });
     }
