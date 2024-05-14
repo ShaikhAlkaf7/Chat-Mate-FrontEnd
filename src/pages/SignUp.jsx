@@ -23,7 +23,7 @@ const SignUp = () => {
 
       if (data?.successs == true) {
         toast.success(data?.message, { position: "top-center" });
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       toast.error(error.response.data.message, { position: "top-center" });
@@ -32,7 +32,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border">
+      <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border text-black">
         <h1 className="text-3xl font-bold text-center my-2">Sign Up </h1>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1 w-full">
@@ -47,7 +47,7 @@ const SignUp = () => {
               required
               placeholder="Full Name"
               onChange={(e) => setFullName(e.target.value)}
-              className="p-2 rounded-md sm:w-72 w-60"
+              className="p-2 rounded-md sm:w-72 w-60 bg-white"
             />
           </div>
           <div className="flex flex-col gap-1 w-full">
@@ -62,7 +62,7 @@ const SignUp = () => {
               required
               placeholder="User Name"
               onChange={(e) => setUserName(e.target.value)}
-              className="p-2 rounded-md sm:w-72 w-60"
+              className="p-2 rounded-md sm:w-72 w-60 bg-white"
             />
           </div>
 
@@ -78,7 +78,7 @@ const SignUp = () => {
               required
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
-              className="p-2 rounded-md sm:w-72 w-60"
+              className="bg-white p-2 rounded-md sm:w-72 w-60"
             />
           </div>
 
@@ -94,7 +94,7 @@ const SignUp = () => {
               required
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
-              className="p-2 rounded-md sm:w-72 w-60"
+              className=" bg-white p-2 rounded-md sm:w-72 w-60"
             />
           </div>
 

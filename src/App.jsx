@@ -6,8 +6,14 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { addUser } from "./redux/userSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const user = localStorage.getItem("user");
+
+  dispatch(addUser(JSON.parse(user)));
   return (
     <BrowserRouter>
       <ToastContainer />

@@ -32,7 +32,7 @@ const Login = () => {
   };
   return (
     <div>
-      <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border">
+      <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border text-black">
         <h1 className="text-3xl font-bold text-center my-2">Login </h1>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1 w-full">
@@ -47,7 +47,7 @@ const Login = () => {
               required
               placeholder="User Name"
               onChange={(e) => setUserName(e.target.value)}
-              className="p-2 rounded-md sm:w-72 w-60"
+              className="p-2 rounded-md sm:w-72 w-60 bg-white"
             />
           </div>
 
@@ -63,7 +63,7 @@ const Login = () => {
               required
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
-              className="p-2 rounded-md sm:w-72 w-60"
+              className="p-2 rounded-md sm:w-72 w-60 bg-white"
             />
           </div>
 
