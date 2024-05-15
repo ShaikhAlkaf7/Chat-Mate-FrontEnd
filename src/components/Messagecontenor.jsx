@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import MessageBox from "./MessageBox";
 
 const Messagecontenor = () => {
-  const { selectedUser, user } = useSelector((state) => state?.user);
+  const { selectedUser, user, onlineUser } = useSelector(
+    (state) => state?.user
+  );
+  const isOnline = onlineUser?.includes(selectedUser?._id);
 
   return (
     <div className="sm:w-[400px] min-w-72  relative">
@@ -11,7 +14,11 @@ const Messagecontenor = () => {
         <div className="flex items-center gap-2 border bg-black  p-2 cursor-pointer rounded-md my-1">
           <div className=" relative text-2xl text-black bg-sky-500 rounded-full h-10 w-10 flex items-center justify-center">
             {selectedUser?.fullName[0]?.toUpperCase()}
-            <span className="h-2 w-2 bg-green-400 rounded-full absolute right-1 bottom-1"></span>
+            <span
+              className={`h-2 w-2 ${
+                isOnline ? "bg-green-400" : ""
+              } rounded-full absolute right-1 bottom-1`}
+            ></span>
           </div>
           <div>
             <p className="text-white font-semibold">{selectedUser?.fullName}</p>

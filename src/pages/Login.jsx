@@ -14,10 +14,13 @@ const Login = () => {
     e.preventDefault();
     console.log("first");
     try {
-      const { data } = await axios.post("/api/user/login", {
-        userName,
-        password,
-      });
+      const { data } = await axios.post(
+        "http://localhost:8000/api/user/login",
+        {
+          userName,
+          password,
+        }
+      );
       console.log(data);
       if (data?.success == true) {
         toast.success(data?.message, { position: "top-center" });

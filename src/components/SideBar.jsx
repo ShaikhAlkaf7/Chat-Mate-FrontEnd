@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { IoLogOutSharp, IoSearchSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import OtherUsers from "./OtherUsers";
-import { addUser, setSelectedUser } from "../redux/userSlice";
+import { addUser, setOnlineUsers, setSelectedUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -16,7 +16,7 @@ const SideBar = () => {
 
   const fetchOtherUsers = async () => {
     try {
-      const { data } = await axios.get("/api/user/", {
+      const { data } = await axios.get("http://localhost:8000/api/user/", {
         headers: {
           Authorization: user?.token,
         },
@@ -29,6 +29,7 @@ const SideBar = () => {
     localStorage.removeItem("user");
     dispatch(addUser(null));
     dispatch(setSelectedUser(null));
+    dispatch(setOnlineUsers(null));
     toast.success("logout successfully", { position: "top-center" });
     navigate("/login");
   };
@@ -72,13 +73,16 @@ const SideBar = () => {
           <OtherUsers user={user} key={user?._id} />
         ))}
       </div>
-      <button
-        className="text-3xl text-black"
-        title="logout"
-        onClick={handleLogout}
-      >
-        <IoLogOutSharp />
-      </button>
+      <div className="absolute bottom-0 text-xl text-black font-bold  ">
+        {user && <p>Hi! {user?.fullName}</p>}
+        <button
+          className=" bg-white m-1 p-1 rounded-md"
+          title="logout"
+          onClick={handleLogout}
+        >
+          Log Out
+        </button>
+      </div>
     </div>
   );
 };

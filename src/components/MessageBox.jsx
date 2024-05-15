@@ -8,12 +8,13 @@ const MessageBox = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const scroll = useRef();
+  const { socket } = useSelector((state) => state?.socket);
 
   const fetchMessages = async () => {
     try {
       setMessages([]);
       const { data } = await axios.get(
-        `/api/message/${
+        `http://localhost:8000/api/message/${
           selectedUser == null ? "111111111111111111111111" : selectedUser?._id
         }`,
         {
@@ -35,7 +36,7 @@ const MessageBox = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `/api/message/send/${selectedUser?._id}`,
+        `http://localhost:8000/api/message/send/${selectedUser?._id}`,
         { message },
         {
           headers: {
@@ -43,7 +44,6 @@ const MessageBox = () => {
           },
         }
       );
-      console.log(data);
       setMessages([...messages, data?.newMessage]);
       setMessage("");
     } catch (error) {
@@ -51,12 +51,27 @@ const MessageBox = () => {
     }
   };
 
+  const getRealTimeMessage = () => {
+    try {
+      socket?.on("newMessage", (newMessage) => {
+        setMessages([...messages, newMessage]);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getRealTimeMessage();
+  }, [socket, messages]);
+
   useEffect(() => {
     fetchMessages();
   }, [selectedUser]);
+
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
+  }, [message, messages]);
 
   const options = {
     year: "numeric",

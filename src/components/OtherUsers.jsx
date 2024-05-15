@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSelectedUser } from "../redux/userSlice";
 
 const OtherUsers = ({ user }) => {
-  const { selectedUser } = useSelector((state) => state?.user);
+  const { selectedUser, onlineUser } = useSelector((state) => state?.user);
   const dispatch = useDispatch();
+  const isOnline = onlineUser?.includes(user?._id);
 
   const handleSelectChat = () => {
     dispatch(setSelectedUser(user));
@@ -19,7 +20,11 @@ const OtherUsers = ({ user }) => {
     >
       <div className=" relative text-2xl bg-sky-500 rounded-full text-black h-10 w-10 flex items-center justify-center">
         {user?.fullName[0]?.toUpperCase()}
-        <span className="h-2 w-2 bg-green-400 rounded-full absolute right-1 bottom-1"></span>
+        <span
+          className={`h-2 w-2 ${
+            isOnline ? "bg-green-400" : ""
+          } rounded-full absolute right-1 bottom-1`}
+        ></span>
       </div>
       <div>
         <p className="text-black font-semibold">{user?.fullName}</p>

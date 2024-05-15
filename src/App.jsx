@@ -1,19 +1,20 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import SignUp from "./pages/SignUp";
 import { addUser } from "./redux/userSlice";
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = localStorage.getItem("user");
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  dispatch(addUser(JSON.parse(user)));
+  dispatch(addUser(user));
+
   return (
     <BrowserRouter>
       <ToastContainer />

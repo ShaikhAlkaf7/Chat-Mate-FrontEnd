@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Messagecontenor from "../components/Messagecontenor";
 import SideBar from "../components/SideBar";
+import { useDispatch, useSelector } from "react-redux";
+import { setSocket } from "../redux/socketSlice";
+import { setOnlineUsers } from "../redux/userSlice";
+import { io } from "socket.io-client";
 
 const Home = () => {
   const [sideBar, setSideBar] = useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state?.user);
+
+  useEffect(() => {
+    if (user) {
+      const socket = io("http://localhost:8000", {
+        query: { userId: user?._id },
+      });
+      dispatch(setSocket(socket));
+
+      socket.on("getOnlineUsers", (onlineUser) => {
+        dispatch(setOnlineUsers(onlineUser));
+      });
+      return () => socket.close();
+    }
+  }, [user]);
+
   return (
     <>
       {sideBar ? (

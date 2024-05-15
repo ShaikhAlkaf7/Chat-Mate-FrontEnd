@@ -14,12 +14,15 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/user/register", {
-        userName,
-        password,
-        fullName,
-        email,
-      });
+      const { data } = await axios.post(
+        "http://localhost:8000/api/user/register",
+        {
+          userName,
+          password,
+          fullName,
+          email,
+        }
+      );
 
       if (data?.successs == true) {
         toast.success(data?.message, { position: "top-center" });
