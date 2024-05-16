@@ -7,29 +7,31 @@ import { addUser } from "../redux/userSlice";
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
-    console.log("first");
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/user/login",
+        `${import.meta.env.VITE_BACKEND_API_ROUTE}/api/user/login`,
         {
           userName,
           password,
         }
       );
-      console.log(data);
       if (data?.success == true) {
         toast.success(data?.message, { position: "top-center" });
         localStorage.setItem("user", JSON.stringify(data?.user));
         dispatch(addUser(data?.user));
+        setLoading(false);
         navigate("/");
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
       toast.error(error.response.data.message, { position: "top-center" });
     }
   };
@@ -74,7 +76,7 @@ const Login = () => {
             className="w-full p-2 text-xl font-bold bg-sky-800 rounded-md hover:bg-sky-500"
             onClick={handleSubmit}
           >
-            Submit
+            {loading ? "Please Wait" : "Submit"}
           </button>
         </form>
         <Link to={"/sign-up"}>

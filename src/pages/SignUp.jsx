@@ -8,14 +8,16 @@ const SignUp = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/user/register",
+        `${import.meta.env.VITE_BACKEND_API_ROUTE}/api/user/register`,
         {
           userName,
           password,
@@ -27,8 +29,10 @@ const SignUp = () => {
       if (data?.successs == true) {
         toast.success(data?.message, { position: "top-center" });
         navigate("/login");
+        setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       toast.error(error.response.data.message, { position: "top-center" });
     }
   };
@@ -105,7 +109,7 @@ const SignUp = () => {
             className="w-full p-2 text-xl font-bold bg-sky-800 rounded-md hover:bg-sky-500"
             onClick={handleSubmit}
           >
-            Submit
+            {loading ? "Please Wait" : "Submit"}
           </button>
         </form>
         <Link to={"/login"}>

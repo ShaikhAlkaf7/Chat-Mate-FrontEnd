@@ -14,7 +14,7 @@ const MessageBox = () => {
     try {
       setMessages([]);
       const { data } = await axios.get(
-        `http://localhost:8000/api/message/${
+        `${import.meta.env.VITE_BACKEND_API_ROUTE}/api/message/${
           selectedUser == null ? "111111111111111111111111" : selectedUser?._id
         }`,
         {
@@ -36,7 +36,9 @@ const MessageBox = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        `http://localhost:8000/api/message/send/${selectedUser?._id}`,
+        `${import.meta.env.VITE_BACKEND_API_ROUTE}/api/message/send/${
+          selectedUser?._id
+        }`,
         { message },
         {
           headers: {
@@ -84,51 +86,60 @@ const MessageBox = () => {
   };
 
   return (
-    <div className="">
-      {messages.length > 0 ? (
-        messages.map((message) => (
-          <div
-            className={`chat chat-start ${
-              user?._id === message?.senderId ? "chat-end" : "chat-start"
-            }`}
-            key={message._id}
-            ref={scroll}
-          >
-            <div className="chat-header text-black">
-              {user?._id != message?.senderId ? selectedUser?.userName : "you"}{" "}
-              <time className="text-xs opacity-50">
-                {new Date(message?.createdAt).toLocaleString("en-US", options)}
-              </time>
-            </div>
-            <div className="chat-bubble">{message?.message}</div>
-          </div>
-        ))
-      ) : (
-        <div className="flex items-center h-[50vh] justify-center text-black font-bold text-2xl ">
-          <p>Start A Chat</p>
-        </div>
-      )}
+    <>
       {selectedUser && (
-        <div className="absolute bottom-0 my-3 w-full">
-          <form
-            className="flex items-center w-full pr-2 bg-white rounded-md"
-            onSubmit={sendMessageHandler}
-          >
-            <input
-              type="text"
-              required={true}
-              placeholder="Send Message"
-              className="p-2 rounded-md w-full outline-none text-black bg-white"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button>
-              <IoSend className="text-2xl" />
-            </button>
-          </form>
+        <div className="">
+          {messages.length > 0 ? (
+            messages.map((message) => (
+              <div
+                className={`chat chat-start ${
+                  user?._id === message?.senderId ? "chat-end" : "chat-start"
+                }`}
+                key={message._id}
+                ref={scroll}
+              >
+                <div className="chat-header text-black">
+                  {user?._id != message?.senderId
+                    ? selectedUser?.userName
+                    : "you"}{" "}
+                  <time className="text-xs opacity-50">
+                    {new Date(message?.createdAt).toLocaleString(
+                      "en-US",
+                      options
+                    )}
+                  </time>
+                </div>
+                <div className="chat-bubble">{message?.message}</div>
+              </div>
+            ))
+          ) : (
+            <div className="flex items-center h-[50vh] justify-center text-black font-bold text-2xl ">
+              <p>Start A Chat</p>
+            </div>
+          )}
+          {selectedUser && (
+            <div className="absolute bottom-0 my-3 w-full">
+              <form
+                className="flex items-center w-full pr-2 bg-white rounded-md"
+                onSubmit={sendMessageHandler}
+              >
+                <input
+                  type="text"
+                  required={true}
+                  placeholder="Send Message"
+                  className="p-2 rounded-md w-full outline-none text-black bg-white"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+                <button>
+                  <IoSend className="text-2xl" />
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

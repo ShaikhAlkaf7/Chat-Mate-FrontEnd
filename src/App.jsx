@@ -14,6 +14,8 @@ const App = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   dispatch(addUser(user));
+  // console.log("first");
+  console.log(import.meta.env.VITE_BACKEND_API_ROUTE);
 
   return (
     <BrowserRouter>

@@ -16,11 +16,14 @@ const SideBar = () => {
 
   const fetchOtherUsers = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/api/user/", {
-        headers: {
-          Authorization: user?.token,
-        },
-      });
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_API_ROUTE}/api/user/`,
+        {
+          headers: {
+            Authorization: user?.token,
+          },
+        }
+      );
       setUsers(data?.otherUsers);
     } catch (error) {}
   };

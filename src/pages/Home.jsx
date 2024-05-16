@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      const socket = io("http://localhost:8000", {
+      const socket = io(`${import.meta.env.VITE_BACKEND_API_ROUTE}`, {
         query: { userId: user?._id },
       });
       dispatch(setSocket(socket));
