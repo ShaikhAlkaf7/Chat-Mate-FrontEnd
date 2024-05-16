@@ -15,16 +15,27 @@ const App = () => {
 
   dispatch(addUser(user));
   // console.log("first");
-  console.log(import.meta.env.VITE_BACKEND_API_ROUTE);
 
   return (
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/*" element={<NotFound />} />
+        <Route
+          path="https://chat-mate-front-end.vercel.app/"
+          element={<Home />}
+        />
+        <Route
+          path="https://chat-mate-front-end.vercel.app/sign-up"
+          element={<SignUp />}
+        />
+        <Route
+          path="https://chat-mate-front-end.vercel.app/login"
+          element={<Login />}
+        />
+        <Route
+          path="https://chat-mate-front-end.vercel.app/*"
+          element={<NotFound />}
+        />
       </Routes>
     </BrowserRouter>
   );
