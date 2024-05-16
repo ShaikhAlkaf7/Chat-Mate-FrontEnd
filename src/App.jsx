@@ -20,10 +20,7 @@ const App = () => {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route
-          path="https://chat-mate-front-end.vercel.app/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
         <Route
           path="https://chat-mate-front-end.vercel.app/sign-up"
           element={<SignUp />}
