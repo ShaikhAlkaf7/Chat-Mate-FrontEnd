@@ -21,18 +21,9 @@ const App = () => {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="https://chat-mate-front-end.vercel.app/sign-up"
-          element={<SignUp />}
-        />
-        <Route
-          path="https://chat-mate-front-end.vercel.app/login"
-          element={<Login />}
-        />
-        <Route
-          path="https://chat-mate-front-end.vercel.app/*"
-          element={<NotFound />}
-        />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
