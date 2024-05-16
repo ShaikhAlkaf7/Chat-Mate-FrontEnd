@@ -87,38 +87,34 @@ const MessageBox = () => {
 
   return (
     <>
-      {selectedUser && (
+      {selectedUser ? (
         <div className="">
-          {messages.length > 0 ? (
-            messages.map((message) => (
-              <div
-                className={`chat chat-start ${
-                  user?._id === message?.senderId ? "chat-end" : "chat-start"
-                }`}
-                key={message._id}
-                ref={scroll}
-              >
-                <div className="chat-header text-black">
-                  {user?._id != message?.senderId
-                    ? selectedUser?.userName
-                    : "you"}{" "}
-                  <time className="text-xs opacity-50">
-                    {new Date(message?.createdAt).toLocaleString(
-                      "en-US",
-                      options
-                    )}
-                  </time>
+          {messages.length > 0
+            ? messages.map((message) => (
+                <div
+                  className={`chat chat-start ${
+                    user?._id === message?.senderId ? "chat-end" : "chat-start"
+                  }`}
+                  key={message._id}
+                  ref={scroll}
+                >
+                  <div className="chat-header text-black">
+                    {user?._id != message?.senderId
+                      ? selectedUser?.userName
+                      : "you"}{" "}
+                    <time className="text-xs opacity-50">
+                      {new Date(message?.createdAt).toLocaleString(
+                        "en-US",
+                        options
+                      )}
+                    </time>
+                  </div>
+                  <div className="chat-bubble">{message?.message}</div>
                 </div>
-                <div className="chat-bubble">{message?.message}</div>
-              </div>
-            ))
-          ) : (
-            <div className="flex items-center h-[50vh] justify-center text-black font-bold text-2xl ">
-              <p>Start A Chat</p>
-            </div>
-          )}
+              ))
+            : ""}
           {selectedUser && (
-            <div className="absolute bottom-0 my-3 w-full">
+            <div className="absolute bottom-0 sm:mb-1 w-full">
               <form
                 className="flex items-center w-full pr-2 bg-white rounded-md"
                 onSubmit={sendMessageHandler}
@@ -137,6 +133,10 @@ const MessageBox = () => {
               </form>
             </div>
           )}
+        </div>
+      ) : (
+        <div className="flex items-center h-[50vh] justify-center text-black font-bold text-2xl ">
+          <p>Start A Chat</p>
         </div>
       )}
     </>

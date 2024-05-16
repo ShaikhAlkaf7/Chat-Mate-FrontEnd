@@ -38,8 +38,8 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border text-black">
+    <div className=" flex justify-center items-center h-screen w-screen ">
+      <div className="backdrop-blur-[2px]  p-8 rounded-md border-black border text-black w-72">
         <h1 className="text-3xl font-bold text-center my-2">Sign Up </h1>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1 w-full">
