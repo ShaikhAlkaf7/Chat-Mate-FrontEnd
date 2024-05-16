@@ -11,8 +11,8 @@ const Messagecontenor = () => {
   return (
     <div className="sm:w-[400px] min-w-72  relative">
       {selectedUser && (
-        <div className="flex items-center gap-2 border bg-black  p-2 cursor-pointer rounded-md my-1">
-          <div className=" relative text-2xl text-black bg-sky-500 rounded-full h-10 w-10 flex items-center justify-center">
+        <div className="flex items-center mt-9 sm:mt-0 gap-2 border bg-black  p-2 cursor-pointer rounded-md my-1">
+          <div className=" relative text-2xl  text-black bg-sky-500 rounded-full h-10 w-10 flex items-center justify-center">
             {selectedUser?.fullName[0]?.toUpperCase()}
             <span
               className={`h-2 w-2 ${

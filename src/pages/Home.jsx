@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 const Home = () => {
   const [sideBar, setSideBar] = useState(false);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state?.user);
+  const { user, selectedUser } = useSelector((state) => state?.user);
 
   useEffect(() => {
     if (user) {
@@ -25,6 +25,10 @@ const Home = () => {
       return () => socket.close();
     }
   }, [user]);
+
+  // useEffect(() => {
+  //   setSideBar(!sideBar);
+  // }, [selectedUser]);
 
   return (
     <>
@@ -42,11 +46,11 @@ const Home = () => {
         </button>
       )}
 
-      <div className="rounded-md flex flex-col sm:flex-row overflow-hidden backdrop-blur-[4px] border border-black h-[90vh]  sm:h-[80vh]">
+      <div className="rounded-md  flex flex-col sm:flex-row overflow-hidden backdrop-blur-[4px] border border-black h-[100vh]   sm:h-[80vh] ">
         <div
           className={` ${
             sideBar ? "-translate-x-full " : "translate-x-0"
-          } transition-all z-50 delay-200 bg-white sm:bg-transparent h-screen absolute sm:static sm:h-full `}
+          } transition-all absolute bottom-0 right-0 left-0 top-0 z-50 delay-200 bg-white sm:bg-transparent h-screen  sm:static sm:h-full `}
         >
           <SideBar />
         </div>

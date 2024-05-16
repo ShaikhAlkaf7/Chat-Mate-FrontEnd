@@ -53,9 +53,9 @@ const SideBar = () => {
   }, []);
 
   return (
-    <div className="p-2 flex flex-col gap-2 h-[90vh] sm:h-[80vh] z-50 ">
+    <div className="p-2  flex flex-col gap-2 h-[90vh] sm:h-[80vh] z-50 ">
       <form
-        className="flex items-center w-72 bg-white rounded-md"
+        className="flex items-center w-72 bg-white rounded-md hidden sm:flex"
         onSubmit={fetchSearchUser}
       >
         <input
@@ -71,7 +71,7 @@ const SideBar = () => {
           <IoSearchSharp className="text-2xl" />
         </button>
       </form>
-      <div className="  overflow-auto scroll-smooth">
+      <div className="  overflow-auto scroll-smooth mt-8 sm:mt-0">
         {users.map((user) => (
           <OtherUsers user={user} key={user?._id} />
         ))}
@@ -79,7 +79,7 @@ const SideBar = () => {
       <div className="absolute bottom-0 text-xl text-black font-bold  ">
         {user && <p>Hi! {user?.fullName}</p>}
         <button
-          className=" bg-white m-1 p-1 rounded-md"
+          className=" sm:bg-white bg-black text-white sm:text-black  m-1 p-1 rounded-md"
           title="logout"
           onClick={handleLogout}
         >
