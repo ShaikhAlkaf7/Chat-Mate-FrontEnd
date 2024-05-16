@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import SignUp from "./pages/SignUp";
 import { addUser } from "./redux/userSlice";
+import AuthFile from "./components/AuthFile";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,9 @@ const App = () => {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<AuthFile />}>
+          <Route path="/" element={<Home />} />
+        </Route>
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
