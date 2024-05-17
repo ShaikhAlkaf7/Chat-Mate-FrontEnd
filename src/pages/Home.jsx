@@ -50,7 +50,7 @@ const Home = () => {
         <div
           className={` ${
             sideBar ? "-translate-x-full " : "translate-x-0"
-          } transition-all absolute bottom-0 right-0 left-0 top-0 z-50 delay-200 bg-white sm:bg-transparent h-screen  sm:static sm:h-full `}
+          } transition-all absolute bottom-0 right-0 left-0   z-50 delay-200 bg-white sm:bg-transparent h-screen  sm:static sm:h-full `}
         >
           <SideBar />
         </div>
